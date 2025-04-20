@@ -1,0 +1,46 @@
+<view class="container"
+    bindtouchstart="handleTouchStart" 
+    bindtouchend="handleTouchEnd">
+  <view class="header">
+    <view class="year-month-control">
+      <text class="nav-icon" bindtap="prevYear" decode="true"> &lt;&lt; </text>
+      <text class="nav-icon" bindtap="prevMonth" decode="true">&lt;</text>
+      <text class="{{flashClass}}">{{year}}年{{month + 1}}月</text>
+      <text class="nav-icon" bindtap="nextMonth" decode="true">&gt;</text>
+      <text class="nav-icon" bindtap="nextYear" decode="true">&gt;&gt;</text>
+    </view>
+    <button class='today-button' bind:tap="moveToToday">今日</button>
+  </view>
+  <view class="weekdays">
+    <text wx:for="{{weekdays}}" wx:key="index" class="weekday {{index === 0 || index === 6 ? 'weekend' : 'workday'}}">{{item}}</text>
+  </view>
+  <view class="days">
+    <view wx:for="{{days}}" wx:key="index" class="{{item.class}}" bindtap="selectDay" data-date="{{item.solarDate}}" id="day_{{item.solarDate}}" >
+      <view class="month-day-container">
+        <text class="month-day">{{item.day}}</text><text wx:if="{{item.isToday}}" class='today-icon'>今</text>
+      </view>
+      <text class="lunar {{item.lunarInfo.day == 1 ? 'lunar-month-start' : ''}}">{{item.lunarInfo.day == 1 ? item.lunarInfo.monthInChinese + '月' : item.lunarInfo.dayInChinese }}</text>
+      <text wx:if="{{item.lunarInfo.jieQiDaysOffset == 0}}" class="jieqi">{{item.lunarInfo.currentJieQi}}</text>
+      <text wx:if="{{item.lunarInfo.festivals}}" class="festival" decode="true" style="white-space: pre-line;">{{item.lunarInfo.festivals}}</text>
+    </view>
+  </view>
+</view>
+<!-- 在文件底部添加 -->
+<view wx:if="{{showPopup}}" class="popup-mask">
+  <view class="popup-content" style="left: {{popupLeft}}px; top: {{popupTop}}px">
+    <view class="popup-header">
+      <text>日期详情</text>
+      <text class="close-btn" bindtap="closePopup">×</text>
+    </view>
+    <view class="popup-body">
+      <text>公历:{{selectedDay.solarDate}}</text>
+      <text>星期:{{selectedDay.weekDay}}</text>
+      <text>农历:{{selectedDay.lunarDate}}</text>
+      <text>生肖:{{selectedDay.shengxiao}}</text>
+      <text>干支历:{{selectedDay.ganzhiDate}}</text>
+      <text>节气:{{selectedDay.currentJieQi}}第{{selectedDay.jieQiDaysOffset+1}}天</text>
+      <text wx:if="{{selectedDay.festivals}}">节日:{{selectedDay.festivals}}</text>
+      <!-- 这里可以添加更多日期信息 -->
+    </view>
+  </view>
+</view>

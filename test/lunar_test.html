@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>农历计算测试工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .test-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input[type="date"], button {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        pre {
+            white-space: pre-wrap;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>农历计算测试</h2>
+        
+        <div>
+            <input type="date" id="testDate" value="">
+            <button onclick="runTest()">测试</button>
+        </div>
+
+        <div class="result">
+            <h4>测试结果：</h4>
+            <pre id="output"></pre>
+        </div>
+
+        <h4>测试用例：</h4>
+        <div class="test-cases">
+            <button onclick="testCase('2023-01-22')">2023春节</button>
+            <button onclick="testCase('2024-02-10')">2024春节</button>
+            <button onclick="testCase('2025-03-31')">2025-03-31</button>
+            <button onclick="testCase(new Date())">今天</button>
+        </div>
+    </div>
+
+    <script src="../utils/lunar.js"></script>
+    <script>
+    // 适配浏览器环境
+    // 修改这部分调用代码
+    const lunar = {
+        solarToLunar: function(date) {
+            return window.lunarJS.solarToLunar(date)
+        }
+    };
+    
+    // 应该简化为：
+    function runTest() {
+        const dateStr = document.getElementById('testDate').value;
+        const date = new Date(dateStr);
+        const result = window.lunarJS.solarToLunar(date); // 直接调用
+        
+        const output = `公历日期：${date.toLocaleDateString()}
+农历日期：${result.lunarYear}年 ${result.lunarMonthName}${result.lunarDayName}
+是否节气：${result.isTerm ? solarTerm[result.termIndex] : '否'}
+是否节日：${result.festivalName || '否'}
+完整数据：${JSON.stringify(result, null, 2)}`;
+        
+        document.getElementById('output').textContent = output;
+    }
+
+    function testCase(date) {
+        if (date === 'new Date()') date = new Date();
+        document.getElementById('testDate').value = 
+            typeof date === 'string' ? date : date.toISOString().split('T')[0];
+        runTest();
+    }
+    </script>
+</body>
+</html>

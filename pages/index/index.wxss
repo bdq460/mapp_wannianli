@@ -1,0 +1,284 @@
+page {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 0rpx;
+  margin-bottom: 45rpx;
+  position: relative;
+}
+
+.year-month-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0rpx 0 0px 0;
+  text-align: center;
+}
+
+.year-month-control text {
+  font-size: 40rpx;
+  padding: 0 20rpx;
+  font-weight: 600;
+}
+
+.year-month-control .nav-icon {
+  font-size: 40rpx;
+  padding: 0 10rpx;
+  font-weight: 600;
+}
+
+.today-button {
+  position: absolute;
+  top: 4rpx;
+  right: 5rpx;
+  width: auto;
+  /* 自动宽度适应内容 */
+  height: auto;
+  padding: 15rpx 5rpx;
+  border-radius: 10rpx;
+  /* 新增边框样式 */
+  border: 2rpx solid royalblue;
+  background-color: rgb(126, 154, 255);
+  box-shadow: 0rpx 5rpx 10rpx rgba(0,0,0,0.2);  /*可选：添加轻微阴影增强立体感*/
+  /* background: linear-gradient(to right, #1dd1a1, #48dbfb); */
+  color: white;
+  font-size: 31rpx;
+  font-weight: bolder;
+  line-height: 1;
+  /* 当前字体大小的 1 倍 */
+  white-space: nowrap;
+  /* 防止文字换行 */
+  transform: scale(0.9);
+  /* 轻微缩小增强精致感 */
+}
+
+.weekdays {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 40rpx;
+}
+
+.weekday {
+  width: 13.5%;
+  display: flex;
+  margin: 0 2rpx 20rpx 2rpx;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.workday {
+  color: #2d8cf0;
+}
+
+.weekend {
+  color: rgb(240, 45, 45);
+}
+
+.days {
+  display: flex;
+  /* 将容器设置为 ​弹性布局（Flexbox）​，使其子元素（flex items）能够按弹性规则排列。 */
+  flex-wrap: wrap;
+  /* 空间不足时自动换行（多行排列）。 */
+  justify-content: flex-start;
+  /* 添加过渡效果使滑动更流畅 */
+  transition: transform 0.3s ease;
+  /* 防止触摸时选中文本 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.day {
+  width: 13.5%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  /* aspect-ratio: 1; 移除固定宽高比 */
+  display: flex;
+  flex-direction: column;
+  /* 定义交叉轴对齐方向, column:垂直方向 row:水平方向*/
+  align-items: center;
+  /* 子项在交叉轴居中对齐*/
+  justify-content: start;
+  /* 内容顶部对齐 */
+  margin: 2rpx 2rpx;
+  /* padding: 0.5rpx, 0; 添加内边距 */
+  font-size: 25rpx;
+  text-align: center;
+  height: auto;
+  /* 添加高度自适应 */
+  min-height: 0;
+  /* 允许收缩 */
+}
+
+.month-day-container {
+  position: relative;
+  /* 为角标定位提供基准 */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: start;
+  /* 垂直居中 */
+}
+
+.target-month {
+  color: #333;
+  /* 使用更深的文字颜色 */
+  background-color: rgba(255, 255, 255, 0.95);
+  /* 更白的背景 */
+  font-weight: bold;
+  /* 加粗字体 */
+  /* border: 1rpx solid rgba(0, 0, 0, 0.05);  添加轻微边框 */
+}
+
+.other-month {
+  color: #bbb;
+  /* 更浅的灰色 */
+  background-color: rgba(255, 255, 255, 0.7);
+  /* 更透明的背景 */
+  opacity: 0.8;
+  /* 降低不透明度 */
+  /* border: 1rpx dashed rgba(0, 0, 0, 0.05);  虚线边框 */
+}
+
+.month-day {
+  font-size: 40rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.today-cell {
+  background-color: rgb(126, 154, 255);
+}
+
+.today-icon {
+  position: absolute;
+  top: -2rpx;
+  /* 向上偏移到文字右上角 */
+  right: -2rpx;
+  /* 向右贴近文字 */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34rpx;
+  /* 小圆直径 */
+  height: 34rpx;
+  border-radius: 50%;
+  background-color: #FF5A5F;
+  /* 红色更醒目，可自定义 */
+  color: white;
+  font-size: 20rpx;
+  /* 缩小字体适应圆圈 */
+  font-weight: bold;
+  line-height: 1;
+  transform: scale(0.7);
+  /* 轻微缩小增强精致感 */
+}
+
+.lunar {
+  font-size: 29rpx;
+  /* color: #333; */
+  font-weight: 500;
+}
+
+.lunar-month-start {
+  color: #ff0000;
+  font-weight: 800;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.festival {
+  color: #E91E63;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.jieqi {
+  color: #19be6b;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(227, 240, 173, 0.9);
+  border-radius: 20rpx;
+  padding: 15rpx;
+  font-size: 22rpx;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.popup-body {
+  padding: 10rpx 0;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  line-height: 1.5;
+}
+
+.close-btn {
+  font-size: 40rpx;
+}
+
+
+/* 添加闪烁动画 */
+@keyframes flash {
+  0% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    opacity: 0.3;
+    background: #4CAF50;
+  }
+
+  100% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.13);
+  }
+}
+
+.flash-animation {
+  animation: flash 0.3s ease-in-out;
+}
